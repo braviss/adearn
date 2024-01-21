@@ -14,12 +14,20 @@ class Article(models.Model):
     status = models.CharField(max_length=2, choices=STATUS_ARTICLE_CHOICES, default='pe')
     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
+    tag = models.ManyToManyField('Tag')
 
     def __str__(self):
         return self.title
 
 
 class Category(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Tag(models.Model):
     name = models.CharField(max_length=30, unique=True)
 
     def __str__(self):

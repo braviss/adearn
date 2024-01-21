@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+
+        <ul class="list-group">
+            <li class="list-group-item d-flex">
+                <div class="mr-15">
+                    Username :
+                </div>
+                <div>{{ object.title }}</div>
+            </li>
+            <li class="list-group-item d-flex">
+                <div class="mr-15">
+                    Tag :
+                </div>
+                <div>{{ object.tag }}</div>
+            </li>
+            <li class="list-group-item d-flex">
+                <a href="{% url 'article:article_list' %}">back</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

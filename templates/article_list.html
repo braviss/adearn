@@ -4,25 +4,51 @@
 
 {% block content %}
     <div class="container mt-4">
-
+        <form method="get">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="search" name="search"
+                       value="{{ request.GET.search }}">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Filter</button>
+                </div>
+            </div>
+        </form>
         <table class="table">
             <thead>
             <tr>
                 <th>Title</th>
                 <th>Created at</th>
                 <th>Category</th>
+                <th>Tags</th>
             </tr>
             </thead>
             <tbody>
             {% for article in articles %}
                 <tr>
-                    <td>{{ article.title }}</td>
+                    <td><a href="{% url 'article:article_detail' article.pk %}">{{ article.title }}</a></td>
                     <td>{{ article.created_at }}</td>
                     <td>{{ article.category }}</td>
+                    <td>{{ article.tag }}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        <div class="pagination">
+            <span class="step-links ">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
 
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     </div>
 {% endblock %}
