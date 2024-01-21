@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Article List{% endblock title %}
+
+{% block content %}
+    <div class="container mt-4">
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Created at</th>
+                <th>Category</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for article in articles %}
+                <tr>
+                    <td>{{ article.title }}</td>
+                    <td>{{ article.created_at }}</td>
+                    <td>{{ article.category }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}
