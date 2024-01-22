@@ -18,7 +18,7 @@ class TagFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Tag
 
-    name = factory.Faker('word')
+    name = factory.Sequence(lambda n: f'Tag{n}')
 
 class ArticleFactory(factory.django.DjangoModelFactory):
     class Meta:

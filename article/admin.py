@@ -10,6 +10,7 @@ from article.models import (
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('title',)}
     list_display = ('title', 'status', 'created_at', 'category')
 
 

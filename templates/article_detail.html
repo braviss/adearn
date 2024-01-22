@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 
+{% block title %}{{ object.slug }}{% endblock title %}
+
 {% block content %}
     <div class="container mt-5">
 
         <ul class="list-group">
             <li class="list-group-item d-flex">
+                <img class="article_img" src="{{ object.image.url }}" alt="{{ object.slug }}" style="width: 100%;">
+            </li>
+            <li class="list-group-item d-flex">
                 <div class="mr-15">
-                    Username :
+                    Title :
                 </div>
                 <div>{{ object.title }}</div>
             </li>
