@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <form method="post" class="form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.title.id_for_label }}">Title:</label>
+                <input type="text" class="form-control" id="{{ form.title.id_for_label }}" name="{{ form.title.name }}"
+                       value="{{ form.title.value|default:'' }}">
+                {% if form.title.errors %}
+                    <div class="text-danger">
+                        {{ form.title.errors.0 }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.body.id_for_label }}">First Name:</label>
+
+                <textarea class="form-control" id="{{ form.body.id_for_label }}" name="{{ form.body.name }}"
+                          value="{{ form.body.value|default:'' }}" cols="30" rows="10"></textarea>
+                {% if form.body.errors %}
+                    <div class="text-danger">
+                        {{ form.body.errors.0 }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.category.id_for_label }}">Category:</label>
+                <select class="form-control" id="{{ form.category.id_for_label }}" name="{{ form.category.name }}">
+                    {% for choice in form.category.field.choices %}
+                        <option value="{{ choice.0 }}" {% if form.category.value == choice.0 %} selected {% endif %}>
+                            {{ choice.1 }}
+                        </option>
+                    {% endfor %}
+                </select>
+                {% if form.category.errors %}
+                    <div class="text-danger">
+                        {{ form.category.errors.0 }}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.image.id_for_label }}">Image:</label>
+                <input type="file" class="form-control" id="{{ form.image.id_for_label }}" name="{{ form.image.name }}"
+                       accept="image/*">
+                {% if form.image.errors %}
+                    <div class="text-danger">
+                        {{ form.image.errors.0 }}
+                    </div>
+                {% endif %}
+            </div>
+{#            <div class="form-group">#}
+{#                <label for="{{ form.tag.id_for_label }}">Tag:</label>#}
+{#                <input type="text" class="form-control" id="{{ form.tag.id_for_label }}" name="{{ form.tag.name }}"#}
+{#                       value="{{ form.tag.value|default:'' }}">#}
+{#                {% if form.tag.errors %}#}
+{#                    <div class="text-danger">#}
+{#                        {{ form.tag.errors.0 }}#}
+{#                    </div>#}
+{#                {% endif %}#}
+{#            </div>#}
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+        <a href="{% url 'article:article_list' %}">back</a>
+    </div>
+{% endblock %}

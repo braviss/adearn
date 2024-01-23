@@ -1,8 +1,13 @@
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
     DetailView,
+    CreateView,
 )
 from django.db.models import Q
+from django.contrib import messages
+
+from article.forms import ArticleForm
 from article.models import Article
 
 
@@ -29,4 +34,22 @@ class ArticleListView(ListView):
 class ArticleDetailView(DetailView):
     model = Article
     template_name = 'article_detail.html'
+
+
+class ArticleCreateView(CreateView):
+    model = Article
+    form_class = ArticleForm
+    template_name = 'article_form.html'
+    success_url = reverse_lazy('article:article_list')
+
+    # def form_valid(self, form):
+    #     response = super().form_valid(form)
+    #     messages.success(self.request, 'Працівника успішно створено.')
+    #     return response
+    #
+    # def form_invalid(self, form):
+    #     messages.error(self.request, 'Виникла помилка при створенні працівника.')
+    #     return super().form_invalid(form)
+
+
 

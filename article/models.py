@@ -15,7 +15,7 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
     image = models.ImageField(upload_to='article_image/', null=True, blank=True, default='article_image/default.webp')
-    tag = models.ManyToManyField('Tag')
+    tag = models.ManyToManyField('Tag', blank=True, null=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
 
     def save(self, *args, **kwargs):

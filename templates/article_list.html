@@ -4,6 +4,11 @@
 
 {% block content %}
     <div class="container mt-4">
+        <div class="row mb-3">
+            <div class="col-md-12">
+                <a href="{% url 'article:article_create' %}" class="btn btn-primary">Create New Article</a>
+            </div>
+        </div>
         <form method="get">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="search" name="search"
