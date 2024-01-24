@@ -3,27 +3,24 @@
 {% block title %}{{ object.slug }}{% endblock title %}
 
 {% block content %}
-    <div class="container mt-5">
 
-        <ul class="list-group">
-            <li class="list-group-item d-flex">
-                <img class="article_img" src="{{ object.image.url }}" alt="{{ object.slug }}" style="width: 100%;">
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Title :
-                </div>
-                <div>{{ object.title }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <div class="mr-15">
-                    Tag :
-                </div>
-                <div>{{ object.tag }}</div>
-            </li>
-            <li class="list-group-item d-flex">
-                <a href="{% url 'article:article_list' %}">back</a>
-            </li>
-        </ul>
+
+
+
+    <div class="container">
+
+        <div class="card">
+            <img class="article_img" src="{{ object.image.url }}" alt="{{ object.slug }}" style="width: 100%;">
+            <div class="card-body">
+                <h2>{{ object.title }}</h2>
+                <p class="card-text">{{ object.body }}</p>
+                <a href="{% url 'article:article_list' %}" class="btn btn-dark">Back</a>
+                <a href="" class="btn btn-dark">{{ object.author }}</a>
+            </div>
+
+        </div>
+
+
+
     </div>
 {% endblock %}

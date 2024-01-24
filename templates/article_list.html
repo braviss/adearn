@@ -3,22 +3,29 @@
 {% block title %}Article List{% endblock title %}
 
 {% block content %}
-    <div class="container mt-4">
+
+
+
+    <div class="row">
+    <div class="col">
         <div class="row mb-3">
             <div class="col-md-12">
-                <a href="{% url 'article:article_create' %}" class="btn btn-primary">Create New Article</a>
+                <a href="{% url 'article:article_create' %}" class="btn btn-dark">Create New Article</a>
             </div>
         </div>
+    </div>
+        <div class="col">
         <form method="get">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="search" name="search"
                        value="{{ request.GET.search }}">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">Filter</button>
+                    <button class="btn btn-dark" type="submit">Filter</button>
                 </div>
             </div>
         </form>
-
+    </div>
+</div>
         <div class="row">
             {% for article in articles %}
                 <div class="col-sm-6 col-md-4">
@@ -27,7 +34,7 @@
                         <div class="caption">
                             <h3>{{ article.title }}</h3>
                             <p>{{ article.body|truncatewords:20 }}</p>
-                            <p><a href="{% url 'article:article_detail' article.slug %}" class="btn btn-primary"
+                            <p><a href="{% url 'article:article_detail' article.slug %}" class="btn btn-dark"
                                   role="button">View</a>
                             </p>
                         </div>
@@ -54,5 +61,5 @@
                 {% endif %}
             </span>
         </div>
-    </div>
+
 {% endblock %}
