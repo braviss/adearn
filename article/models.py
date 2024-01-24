@@ -1,5 +1,10 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
+
+from adearn import settings
+
+
 # Create your models here.
 class Article(models.Model):
 
@@ -17,6 +22,7 @@ class Article(models.Model):
     image = models.ImageField(upload_to='article_image/', null=True, blank=True, default='article_image/default.webp')
     tag = models.ManyToManyField('Tag', blank=True, null=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         if not self.slug:
