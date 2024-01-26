@@ -21,7 +21,6 @@ def article_status_changed(sender, instance, **kwargs):
 
 
 
-
 @receiver(post_delete, sender=Article)
 def article_deleted(sender, instance, **kwargs):
     Notification.objects.create(

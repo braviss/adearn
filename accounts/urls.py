@@ -2,6 +2,7 @@ from accounts.views import (
     LoginView,
     PasswordResetConfirmView,
     PasswordResetView, RegistrationView, AccountDetailView, NotificationListView, NotificationDeleteView,
+    DeleteAllUserNotificationsView,
 )
 from django.contrib.auth import views as auth_views
 from django.urls import path
@@ -19,7 +20,7 @@ urlpatterns = [
     path('notifications/', NotificationListView.as_view(), name='notification_list'),
     path('notifications/<int:pk>/', NotificationDeleteView.as_view(), name='notification_delete'),
 
-
+    path('notifications/delete_all/', DeleteAllUserNotificationsView.as_view(), name='notification_delete_all'),
 
 
     path('password_reset/', PasswordResetView.as_view(), name='password_reset'),

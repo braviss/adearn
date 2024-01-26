@@ -1,8 +1,8 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.views import (
     LoginView as BaseLoginView,
     PasswordResetConfirmView as BasePasswordResetConfirmView,
@@ -10,6 +10,8 @@ from django.contrib.auth.views import (
 )
 from django.urls import reverse_lazy
 from django.utils.http import url_has_allowed_host_and_scheme
+from django.views import View
+
 from accounts.forms import RegistrationForm
 from django.views.generic import (
     CreateView, ListView, DetailView, DeleteView,
@@ -39,6 +41,15 @@ class NotificationDeleteView(LoginRequiredMixin, DeleteView):
     model = Notification
     template_name = 'notification_confirm_delete.html'
     success_url = reverse_lazy('accounts:notification_list')
+
+
+class DeleteAllUserNotificationsView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        # Получаем все уведомления текущего пользователя
+        notifications = Notification.objects.filter(user=request.user)
+        # Удаляем все уведомления
+        notifications.delete()
+        return redirect('accounts:notification_list')
 
 
 
