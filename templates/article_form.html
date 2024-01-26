@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+
     <div class="container mt-5">
-        <form method="post" class="form">
+        <form method="post" class="form" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
                 <label for="{{ form.title.id_for_label }}">Title:</label>
@@ -16,9 +18,8 @@
             </div>
             <div class="form-group">
                 <label for="{{ form.body.id_for_label }}">Body:</label>
+{{ form.body }}
 
-                <textarea class="form-control" id="{{ form.body.id_for_label }}" name="{{ form.body.name }}"
-                          value="{{ form.body.value|default:'' }}" cols="30" rows="10"></textarea>
                 {% if form.body.errors %}
                     <div class="text-danger">
                         {{ form.body.errors.0 }}
@@ -50,16 +51,6 @@
                     </div>
                 {% endif %}
             </div>
-{#            <div class="form-group">#}
-{#                <label for="{{ form.tag.id_for_label }}">Tag:</label>#}
-{#                <input type="text" class="form-control" id="{{ form.tag.id_for_label }}" name="{{ form.tag.name }}"#}
-{#                       value="{{ form.tag.value|default:'' }}">#}
-{#                {% if form.tag.errors %}#}
-{#                    <div class="text-danger">#}
-{#                        {{ form.tag.errors.0 }}#}
-{#                    </div>#}
-{#                {% endif %}#}
-{#            </div>#}
             <div class="form-group mt-3">
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>

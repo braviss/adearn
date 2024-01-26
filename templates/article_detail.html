@@ -13,7 +13,7 @@
             <img class="article_img" src="{{ object.image.url }}" alt="{{ object.slug }}" style="width: 100%;">
             <div class="card-body">
                 <h2>{{ object.title }}</h2>
-                <p class="card-text">{{ object.body }}</p>
+                <p class="card-text">{{ object.body|safe }}</p>
                 <a href="{% url 'article:article_list' %}" class="btn btn-dark">Back</a>
                 <a href="" class="btn btn-dark">{{ object.author }}</a>
             </div>

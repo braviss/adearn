@@ -7,11 +7,17 @@ from article.models import (
     Tag,
 )
 
+@admin.action(description="Mark article published")
+def make_published(modeladmin, request, queryset):
+    queryset.update(status="pu")
+
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     list_display = ('title', 'status', 'created_at', 'category')
+    list_filter = ('status',)
+    actions = [make_published]
 
 
 @admin.register(Category)

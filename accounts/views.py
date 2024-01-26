@@ -12,10 +12,34 @@ from django.urls import reverse_lazy
 from django.utils.http import url_has_allowed_host_and_scheme
 from accounts.forms import RegistrationForm
 from django.views.generic import (
-    CreateView, ListView, DetailView,
+    CreateView, ListView, DetailView, DeleteView,
 )
 
 from accounts.mixins import UserOwnsObjectMixin
+from accounts.models import Notification
+
+
+class NotificationListView(LoginRequiredMixin, ListView):
+    model = Notification
+    template_name = 'notification_list.html'
+    context_object_name = 'notifications'
+
+    def get_queryset(self):
+        unread_notifications = Notification.objects.filter(user=self.request.user, status='un')
+
+        for notification in unread_notifications:
+            notification.status = 're'
+            notification.save()
+
+        return Notification.objects.filter(user=self.request.user).order_by('-created_at')
+
+
+
+class NotificationDeleteView(LoginRequiredMixin, DeleteView):
+    model = Notification
+    template_name = 'notification_confirm_delete.html'
+    success_url = reverse_lazy('accounts:notification_list')
+
 
 
 class AccountDetailView(UserOwnsObjectMixin, LoginRequiredMixin, DetailView):

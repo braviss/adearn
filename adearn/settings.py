@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'accounts',
+    'tinymce',
     'article',
     'general',
 
@@ -53,6 +55,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 360,
+    'width': 920,
+}
+
 ROOT_URLCONF = 'adearn.urls'
 
 TEMPLATES = [
@@ -67,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'accounts.context_processors.notification_count',
             ],
         },
     },

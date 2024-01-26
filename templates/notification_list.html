@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>Notification</h2>
+
+    {% if notifications %}
+
+
+        {% for notification in notifications %}
+            <div class="alert alert-success" role="alert">
+                {{ notification.message }}
+                <a href="#" class="alert-link">{{ notification.created_at }}</a>
+                <a href="{% url 'accounts:notification_delete' notification.id %}" class="close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+
+
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <p>No notifications</p>
+    {% endif %}
+
+
+{% endblock %}

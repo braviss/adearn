@@ -9,8 +9,24 @@
     <title>{% block title %}Django Hillel App{% endblock title %}</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    {#    <script src="{% static "js/tiny_mce/tiny_mce.js" %}"></script>#}
+    {#    <script src="{% url "tinymce-js" "NAME" %}"></script>#}
+    {#    <script src="{% static "js/tiny_mce/tiny_mce.js" %}"></script>#}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"
+            integrity="sha512-6JR4bbn8rCKvrkdoTJd/VFyXAN4CE9XMtgykPWgKiHjou56YDJxWsi90hAeMTYxNwUnKSQu9JPc3SQUg+aGCHw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    {#{{ form.media }}#}
+
 </head>
 <body>
+
+
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -31,8 +47,22 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
+                        <li class="nav-item position-relative">
+                            <a href="{% url 'accounts:notification_list' %}" class="btn btn-light mr-2">
+
+                                {% if unread_notification_count %}
+                                    <p class="rounded-circle pr-2 pl-2 mb-0 bg-success text-white">{{ unread_notification_count }}</p>
+
+                                {% else %}
+                                    <i class="bi bi-chat-left-text"></i>
+                                {% endif %}
+
+
+                            </a>
+                        </li>
                         <li>
-                            <a href="{% url 'accounts:profile' user.id %}" class="btn btn-light mr-2">{{ user.username }}</a>
+                            <a href="{% url 'accounts:profile' user.id %}"
+                               class="btn btn-light mr-2">{{ user.username }}</a>
                         </li>
                         <li class="nav-item">
                             <form method="post" action="{% url 'accounts:logout' %}">
@@ -55,10 +85,31 @@
 </nav>
 
 
+
 <div class="container mt-3">
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+
     {% block content %}
     {% endblock content %}
 </div>
+
+<script>
+
+    tinymce.init({
+        selector: 'textarea',
+        plugins: 'link',
+    });
+</script>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

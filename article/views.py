@@ -29,7 +29,7 @@ class ArticleListView(LoginRequiredMixin, ListView):
                 Q(created_at__icontains=search) |
                 Q(status__icontains=search),
             )
-        return queryset
+        return queryset.filter(status='pu')
 
 
 class ArticleDetailView(LoginRequiredMixin, DetailView):
@@ -45,6 +45,7 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        messages.success(self.request, 'The article has been created, awaiting moderator confirmation')
         return super().form_valid(form)
 
 

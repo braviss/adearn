@@ -1,7 +1,7 @@
 from accounts.views import (
     LoginView,
     PasswordResetConfirmView,
-    PasswordResetView, RegistrationView, AccountDetailView,
+    PasswordResetView, RegistrationView, AccountDetailView, NotificationListView, NotificationDeleteView,
 )
 from django.contrib.auth import views as auth_views
 from django.urls import path
@@ -14,6 +14,10 @@ urlpatterns = [
 
 
     path('profile/<int:pk>/', AccountDetailView.as_view(), name='profile'),
+
+
+    path('notifications/', NotificationListView.as_view(), name='notification_list'),
+    path('notifications/<int:pk>/', NotificationDeleteView.as_view(), name='notification_delete'),
 
 
 

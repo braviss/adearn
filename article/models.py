@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
-
+from tinymce import models as tinymce_models
 from adearn import settings
 
 
@@ -15,7 +15,7 @@ class Article(models.Model):
     ]
 
     title = models.CharField(max_length=200, blank=False, null=False)
-    body = models.TextField(max_length=1000, blank=False, null=False)
+    body = tinymce_models.HTMLField()
     status = models.CharField(max_length=2, choices=STATUS_ARTICLE_CHOICES, default='pe')
     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
