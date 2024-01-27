@@ -10,16 +10,34 @@
     <div class="container">
 
         <div class="card">
+
+            <div class="row">
+                <div class="col">
+                    {% if request.user == article.author %}
+                        <div class="position-absolute mt-2 ml-2">
+                            <a href="{% url 'article:article_delete' article.pk %}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                            <a href="{% url 'article:article_update' article.slug %}" class="btn btn-primary"><i class="bi bi-gear"></i></a>
+                        </div>
+
+
+                {% endif %}
+
+                </div>
+            </div>
+
             <img class="article_img" src="{{ object.image.url }}" alt="{{ object.slug }}" style="width: 100%;">
             <div class="card-body">
                 <h2>{{ object.title }}</h2>
                 <p class="card-text">{{ object.body|safe }}</p>
                 <a href="{% url 'article:article_list' %}" class="btn btn-dark">Back</a>
                 <a href="" class="btn btn-dark">{{ object.author }}</a>
+
+
+
+
             </div>
 
         </div>
-
 
 
     </div>
